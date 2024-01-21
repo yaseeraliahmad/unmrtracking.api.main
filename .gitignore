@@ -6,7 +6,7 @@
 /src_copy
 /.pnp
 .pnp.js
-
+/public
 # testing
 /coverage
 
