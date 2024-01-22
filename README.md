@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# MongoDB
+The application connects to the Mongo data base, so it should be configured with next parameters:
+- MongoDB user - <b>user</b>
+- MongoDB password - <b>password</b>
+- The name of data base - <b>flight</b>

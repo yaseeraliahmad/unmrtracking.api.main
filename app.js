@@ -13,7 +13,8 @@ const jwtkey="passenger@FLIGHT";
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
-const urlMongo="mongodb://"+ipaddress+":27017/";
+// user:password@localhost:
+const urlMongo="mongodb://user:password@localhost:27017/";
 const urlRedis="redis://"+ipaddress+":6379";
 var clientMongo = new MongoClient(urlMongo);
 var ms={"ms1":"http://localhost:8081","ms2":"http://localhost:8082"};
@@ -196,24 +197,24 @@ const authentication=async (req,res,next)=> {
         token=token.split(' ')[1];
         req.jwtpayload=jwt.verify(token,jwtkey);
         //
-        await dbRedis("get",token).then((e)=>{
-          res.on("finish", function() {
-            //
-          });
-          if(req.path=="/api/trips"&&req.jwtpayload.role.indexOf("admin")==-1&&["post","put","patch","delete"].indexOf(req.method.toLowerCase())!==-1){
-            res1.status(401).end(JSON.stringify({msg:"Unauthorized Access1!"}));
-            return;
-          }
-          if(req.path=="/api/all"&&req.jwtpayload.role.indexOf("admin")==-1){
-            res1.status(401).end(JSON.stringify({msg:"Unauthorized Access2!"}));
-            return;
-          }
-          if(req.path=="/api/trips"&&["co-pilot","pilot","flight_attendant","admin"].indexOf(req.jwtpayload.role[0])==-1&&["get"].indexOf(req.method.toLowerCase())!==-1){
-            res1.status(401).end(JSON.stringify({msg:"Unauthorized Access3!"}));
-            return;
-          }
+        // await dbRedis("get",token).then((e)=>{
+        //   res.on("finish", function() {
+        //     //
+        //   });
+        //   if(req.path=="/api/trips"&&req.jwtpayload.role.indexOf("admin")==-1&&["post","put","patch","delete"].indexOf(req.method.toLowerCase())!==-1){
+        //     res1.status(401).end(JSON.stringify({msg:"Unauthorized Access1!"}));
+        //     return;
+        //   }
+        //   if(req.path=="/api/all"&&req.jwtpayload.role.indexOf("admin")==-1){
+        //     res1.status(401).end(JSON.stringify({msg:"Unauthorized Access2!"}));
+        //     return;
+        //   }
+        //   if(req.path=="/api/trips"&&["co-pilot","pilot","flight_attendant","admin"].indexOf(req.jwtpayload.role[0])==-1&&["get"].indexOf(req.method.toLowerCase())!==-1){
+        //     res1.status(401).end(JSON.stringify({msg:"Unauthorized Access3!"}));
+        //     return;
+        //   }
           
-        });
+        // });
         if(req.path=="/api/logout/"){
           await dbRedis("del",token).then((e)=>{
             res1.status(200).end(JSON.stringify({value:[]}));
@@ -232,7 +233,7 @@ const tokengenerate= (payload)=>{
   const token=jwt.sign(payload,jwtkey),d=new Date();
   const expire={exp:(new Date(d.getTime() + 900000))};
   const value={token:token,expire:expire,payload,create_time:d,modify_time:d,status:1};
-  dbRedis("set",token,JSON.stringify(value));
+  // dbRedis("set",token,JSON.stringify(value));
   db("sessions","insert",value);
   // 
   return token;
