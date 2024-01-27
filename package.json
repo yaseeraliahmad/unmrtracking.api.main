@@ -1,5 +1,4 @@
 {
-
   "name": "unmrtracking.api.main",
   "version": "1.0.0",
   "description": "UNMR Tracking",
@@ -11,6 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "consul": "^1.2.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
