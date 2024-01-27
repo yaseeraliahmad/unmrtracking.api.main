@@ -55,8 +55,8 @@ consulClient.agent.service.register({
 
 
 // user:password@localhost:
-const urlMongo="mongodb://admin:password@172.17.0.3:27017/";
-const urlRedis="redis://172.17.0.4:6379";
+const urlMongo="mongodb://admin:password@10.128.172.167:27017/";
+const urlRedis="redis://10.128.172.170:6379";
 var clientMongo = new MongoClient(urlMongo);
 
 var ms={"ms1":"http://172.17.0.5:8081","ms2":"http://172.17.0.7:8082"};
