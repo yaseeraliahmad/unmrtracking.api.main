@@ -16,7 +16,7 @@ const app=express();
 //app.use(express.static("public",options));
 // app.use(cors());
 const corsOptions ={
-  origin:'http://localhost:3000',
+  origin:(process.env.CLIENT||'http://localhost:3000'),
   methods:["GET","POST","PUT","PATCH","DELETE"], 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200,
@@ -59,7 +59,7 @@ servicenames.forEach(e => {
 
 if(!flag) {console.log("Please provide ENV SERVICENAMES");return;}
 // console.log(apis);
-fetcher("http://localhost:8080/registerapis",apis);
+fetcher((process.env.APIGATEWAY||"http://localhost:8080")+"/registerapis",apis);
 //=========Home Page/Web App Redirect
 app.get("/",function(req,res){
   res.status(200).end("Server is Working...");
