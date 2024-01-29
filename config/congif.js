@@ -1,11 +1,11 @@
-const { createClient }=require('redis');
+global.fetch = import('node-fetch');
 const jwt=require("jsonwebtoken");
 const jwtkey="passenger@FLIGHT";
 const urlMongo="mongodb://localhost:27017/";
 const urlRedis="redis://localhost:6379";
+const { createClient }=require('redis');
 const MongoClient = require("mongodb").MongoClient;
 global.ObjectId=require("mongodb").ObjectId;
-
 var clientMongo = new MongoClient(urlMongo);
 
 global.fetcher=async(url,body=null,method="GET")=>{
